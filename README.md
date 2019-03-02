@@ -1,7 +1,7 @@
 # session
 [![Build Status](https://travis-ci.org/joaosoft/session.svg?branch=master)](https://travis-ci.org/joaosoft/session) | [![codecov](https://codecov.io/gh/joaosoft/session/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/session) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/session)](https://goreportcard.com/report/github.com/joaosoft/session) | [![GoDoc](https://godoc.org/github.com/joaosoft/session?status.svg)](https://godoc.org/github.com/joaosoft/session)
 
-Allows to get and refresh a session token.
+A service that allows you to get a new session token and when invalid refresh the session token (jwt).
 
 
 ###### If i miss something or you have something interesting, please be part of this project. Let me know! My contact is at the end.
