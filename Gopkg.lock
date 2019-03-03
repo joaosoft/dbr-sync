@@ -103,7 +103,7 @@
   branch = "master"
   name = "github.com/joaosoft/web"
   packages = ["."]
-  revision = "effa4868a8db387141e13ec4844de885554c41db"
+  revision = "8c2a38c313b4e8490f27c340204339649016f658"
 
 [[projects]]
   branch = "master"
@@ -241,7 +241,7 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "b6889370fb1098ed892bd3400d189bb6a3355813"
+  revision = "c2f5717e611cf8e89a852a41081355194d80c943"
 
 [[projects]]
   name = "golang.org/x/text"
