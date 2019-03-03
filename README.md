@@ -10,6 +10,32 @@ A service that allows you to get a new session token and when invalid refresh th
 * Get session
 * Refresh session with refresh token
 
+## Endpoints
+* **Get Session:** 
+
+    Method: GET
+
+    Route: http://localhost:8001/api/v1/get-session
+    
+    Body: 
+    ```
+    {
+        "email": "joaosoft@gmail.com",
+        "password": "698dc19d489c4e4db73e28a713eab07b"
+    }
+    ```
+
+* **Refresh session:** 
+
+    Method: PUT
+    
+    Route: http://localhost:8001/api/v1/get-session
+    
+    Headers:
+    ```
+    Authorization: Bearer eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJzZXNzaW9uIiwiaWRfdXNlciI6IjEiLCJqdGkiOiI5MWY4MDBhZS00OGQ1LTQzMmUtOWYwZC0xYzAzODY1YmMyZjciLCJzdWIiOiJyZWZyZXNoLXRva2VuIn0.Yfvxgkw3NNqkF9nDuMymp-L0dN9j6vozdeU-A3JTQPc86FGfKeQRSI3CZOaGWZ_Q
+    ```
+
 ## Dependecy Management
 >### Dependency
 
