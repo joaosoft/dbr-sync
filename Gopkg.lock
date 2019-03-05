@@ -49,7 +49,7 @@
     "basic",
     "jwt"
   ]
-  revision = "3cbc735f7e25c37fa572263975599a98c2f5f66c"
+  revision = "a5e4749b30937cfb0b6216037870f3ebee06dd99"
 
 [[projects]]
   branch = "master"
@@ -103,7 +103,7 @@
   branch = "master"
   name = "github.com/joaosoft/web"
   packages = ["."]
-  revision = "e62ba757311ce5227e7d63b2f5170df0574e010e"
+  revision = "15b9cb36034645ef0d6307db41a970698d2e5129"
 
 [[projects]]
   branch = "master"
@@ -241,7 +241,7 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "c2f5717e611cf8e89a852a41081355194d80c943"
+  revision = "30e92a19ae4a77dde818b8c3d41d51e4850cba12"
 
 [[projects]]
   name = "golang.org/x/text"
