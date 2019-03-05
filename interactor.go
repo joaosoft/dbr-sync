@@ -1,6 +1,7 @@
 package session
 
 import (
+	"auth-types/wst"
 	"strings"
 	"time"
 
@@ -29,26 +30,26 @@ func NewInteractor(config *SessionConfig, storageDB IStorageDB) *Interactor {
 func (i *Interactor) newToken(user *User) (string, error) {
 	expirateAt := time.Now().Add(time.Minute * time.Duration(i.config.ExpirationMinutes)).Unix()
 
-	claims := jwt.Claims{
-		jwt.ClaimsExpireAtKey: expirateAt,
-		jwt.ClaimsAudienceKey: "session",
-		jwt.ClaimsSubjectKey:  "get-token",
+	claims := wst.Claims{
+		wst.ClaimsExpireAtKey: expirateAt,
+		wst.ClaimsAudienceKey: "session",
+		wst.ClaimsSubjectKey:  "get-token",
 		claimsIdUser:          user.IdUser,
 	}
-	return jwt.New(jwt.SignatureHS384).Generate(claims, i.config.TokenKey)
+	return wst.New(wst.SignatureHS384, wst.EncodeAscii85, wst.EncodeBase64, wst.EncodeHexadecimal).Generate(claims, i.config.TokenKey)
 }
 
 func (i *Interactor) newRefreshToken(user *User) (string, error) {
 	jwtId, _ := uuid.NewV4()
 
-	claims := jwt.Claims{
-		jwt.ClaimsAudienceKey: "session",
-		jwt.ClaimsSubjectKey:  "refresh-token",
+	claims := wst.Claims{
+		wst.ClaimsAudienceKey: "session",
+		wst.ClaimsSubjectKey:  "refresh-token",
 		claimsIdUser:          user.IdUser,
-		jwt.CLaimsJwtId:       jwtId,
+		wst.CLaimsJwtId:       jwtId,
 	}
 
-	return jwt.New(jwt.SignatureHS384).Generate(claims, i.config.TokenKey)
+	return wst.New(wst.SignatureHS384, wst.EncodeAscii85, wst.EncodeBase64, wst.EncodeHexadecimal).Generate(claims, i.config.TokenKey)
 }
 
 func (i *Interactor) GetSession(request *GetSessionRequest) (*SessionResponse, error) {
@@ -88,23 +89,23 @@ func (i *Interactor) GetSession(request *GetSessionRequest) (*SessionResponse, e
 func (i *Interactor) loadUserFromRefreshToken(request *RefreshSessionRequest) (*User, error) {
 	tokenString := strings.Replace(request.Authorization, "Bearer ", "", 1)
 
-	keyFunc := func(*jwt.Token) (interface{}, error) {
+	keyFunc := func(*wst.Token) (interface{}, error) {
 		return i.config.TokenKey, nil
 	}
 
-	checkFunc := func(jwt.Claims) (bool, error) {
+	checkFunc := func(wst.Claims) (bool, error) {
 		// validate the jti
 		return true, nil
 	}
 
-	claims := jwt.Claims{}
-	ok, err := jwt.Check(tokenString, keyFunc, checkFunc, claims, true)
+	claims := wst.Claims{}
+	ok, err := wst.New(wst.SignatureHS384, wst.EncodeAscii85, wst.EncodeBase64, wst.EncodeHexadecimal).Check(tokenString, keyFunc, checkFunc, claims, true)
 	if err != nil {
 		return nil, err
 	}
 
 	if !ok {
-		return nil, jwt.ErrorInvalidAuthorization
+		return nil, wst.ErrorInvalidAuthorization
 	}
 
 	if idUser, ok := claims[claimsIdUser]; ok {
@@ -112,7 +113,7 @@ func (i *Interactor) loadUserFromRefreshToken(request *RefreshSessionRequest) (*
 		return user, err
 	}
 
-	return nil, jwt.ErrorInvalidAuthorization
+	return nil, wst.ErrorInvalidAuthorization
 }
 
 func (i *Interactor) RefreshToken(request *RefreshSessionRequest) (*SessionResponse, error) {
@@ -121,10 +122,13 @@ func (i *Interactor) RefreshToken(request *RefreshSessionRequest) (*SessionRespo
 	// load refresh token
 	user, err := i.loadUserFromRefreshToken(request)
 	if err != nil {
-		return nil, err
+		log.WithFields(map[string]interface{}{"error": err.Error()}).
+			Error("error loading refresh token")
+		return nil, wst.ErrorInvalidAuthorization
 	}
 
 	if user == nil {
+		log.Error("error loading user")
 		return nil, jwt.ErrorInvalidAuthorization
 	}
 
@@ -133,13 +137,17 @@ func (i *Interactor) RefreshToken(request *RefreshSessionRequest) (*SessionRespo
 	// token
 	newToken, err := i.newToken(user)
 	if err != nil {
-		return nil, err
+		log.WithFields(map[string]interface{}{"error": err.Error()}).
+			Error("error generating token")
+		return nil, wst.ErrorInvalidAuthorization
 	}
 
 	// refresh token
 	newRefreshToken, err := i.newRefreshToken(user)
 	if err != nil {
-		return nil, err
+		log.WithFields(map[string]interface{}{"error": err.Error()}).
+			Error("error generating refresh token")
+		return nil, wst.ErrorInvalidAuthorization
 	}
 
 	if err := i.storage.UpdateUserRefreshToken(user.IdUser, newRefreshToken); err != nil {
