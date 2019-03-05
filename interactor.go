@@ -1,11 +1,11 @@
 package session
 
 import (
-	"auth-types/wst"
 	"strings"
 	"time"
 
 	"github.com/joaosoft/auth-types/jwt"
+	"github.com/joaosoft/auth-types/wst"
 	"github.com/satori/go.uuid"
 )
 

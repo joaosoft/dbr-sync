@@ -47,7 +47,8 @@
   name = "github.com/joaosoft/auth-types"
   packages = [
     "basic",
-    "jwt"
+    "jwt",
+    "wst"
   ]
   revision = "a5e4749b30937cfb0b6216037870f3ebee06dd99"
 
@@ -223,10 +224,10 @@
   version = "v1.0.0"
 
 [[projects]]
-  branch = "master"
   name = "github.com/valyala/fasttemplate"
   packages = ["."]
-  revision = "dcecefd839c4193db0d35b88ec65b4c12d360ab0"
+  revision = "189f40e8adae8acb7c6c3b065d7489f187a548e4"
+  version = "v1.0.0"
 
 [[projects]]
   branch = "master"
@@ -271,6 +272,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "9ec0afffe55029f946fd81825ab454c798ec9d8657e223574c24ae9d7b7b14e0"
+  inputs-digest = "4b859dbaf38900dbaae517980d884bfb46ce21bf69e750711ac4ef4e20d5d44f"
   solver-name = "gps-cdcl"
   solver-version = 1
