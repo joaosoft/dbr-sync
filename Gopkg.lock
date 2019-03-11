@@ -50,7 +50,7 @@
     "jwt",
     "wst"
   ]
-  revision = "a5e4749b30937cfb0b6216037870f3ebee06dd99"
+  revision = "c69fd62ab4415c9c103eb2173d7eccb44c6b20fb"
 
 [[projects]]
   branch = "master"
@@ -62,31 +62,31 @@
   branch = "master"
   name = "github.com/joaosoft/dbr"
   packages = ["."]
-  revision = "cb5df0920dcfc1a0d908649c622392d013e0bb4d"
+  revision = "8aeb1a5669feea41885877a060ead207674ad0b5"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/errors"
   packages = ["."]
-  revision = "dd98851e0d4f418b451d921259cfee63f93864dc"
+  revision = "595507b0a4a675ff2b92ad6f8884f74a36a07df2"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/logger"
   packages = ["."]
-  revision = "3cb37169f05a408eca80c27e648861849c1d8449"
+  revision = "183bd5151e65d920b053ec1d7c3149a69dceefaf"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/manager"
   packages = ["."]
-  revision = "2e0055403b3c0b9efc31052f8d9929186c22bad1"
+  revision = "9339e2e09aa8bff3a1d6514be0c977863e11aef4"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/migration"
   packages = ["services"]
-  revision = "11d1585ecf5b2bd0054b0f799e41aa1b0ab4683d"
+  revision = "ca851da6f0c2d80019c21171e2d7a1e8919c6ab3"
 
 [[projects]]
   branch = "master"
@@ -98,13 +98,13 @@
   branch = "master"
   name = "github.com/joaosoft/validator"
   packages = ["."]
-  revision = "bd17d2b2a0d1f58707a8d3ee9291d50af88096c4"
+  revision = "4c5838fc0d21a02071d0cf087918f6fac60ce622"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/web"
   packages = ["."]
-  revision = "15b9cb36034645ef0d6307db41a970698d2e5129"
+  revision = "5f40ce1666ebcd4ccb554ce6a5f9279fa55f6afc"
 
 [[projects]]
   branch = "master"
@@ -236,13 +236,13 @@
     "acme",
     "acme/autocert"
   ]
-  revision = "8dd112bcdc25174059e45e07517d9fc663123347"
+  revision = "c2843e01d9a2bc60bb26ad24e09734fdc2d9ec58"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "30e92a19ae4a77dde818b8c3d41d51e4850cba12"
+  revision = "10058d7d4faa7dd5ef860cbd31af00903076e7b8"
 
 [[projects]]
   name = "golang.org/x/text"
