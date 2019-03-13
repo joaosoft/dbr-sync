@@ -22,7 +22,7 @@ func NewSession(options ...SessionOption) (*Session, error) {
 
 	service := &Session{
 		pm:     manager.NewManager(manager.WithRunInBackground(false)),
-		logger: logger.NewLogDefault("uploader", logger.WarnLevel),
+		logger: logger.NewLogDefault("session", logger.WarnLevel),
 		config: config.Session,
 	}
 
