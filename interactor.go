@@ -53,7 +53,7 @@ func (i *Interactor) newRefreshToken(user *User) (string, error) {
 }
 
 func (i *Interactor) GetSession(request *GetSessionRequest) (*SessionResponse, error) {
-	log.WithFields(map[string]interface{}{"method": "GetSession"})
+	log.WithFields(map[string]interface{}{"method": "AddEvent"})
 	log.Infof("getting user session [email: %s]", request.Email)
 	user, err := i.storage.GetUserByEmailAndPassword(request.Email, request.Password)
 	if err != nil {
