@@ -1,7 +1,8 @@
-package session
+package profile
 
 import (
-	"github.com/joaosoft/types"
+	"encoding/json"
+
 	"github.com/joaosoft/web"
 
 	"time"
@@ -13,44 +14,32 @@ type ErrorResponse struct {
 	Cause   string     `json:"cause,omitempty"`
 }
 
-type GetSessionRequest struct {
-	Email    string `json:"email" validate:"notzero"`
-	Password string `json:"password" validate:"notzero"`
+type GetSectionRequest struct {
+	SectionKey string `json:"section_key" validate:"notzero"`
 }
 
-type RefreshSessionRequest struct {
-	Authorization string `json:"authorization" validate:"notzero"`
+type GetSectionContentsRequest struct {
+	SectionKey string `json:"section_key" validate:"notzero"`
 }
 
-type SessionResponse struct {
-	TokenType    string `json:"token_type"`
-	Token        string `json:"token"`
-	RefreshToken string `json:"refresh_token"`
+type Sections []*Section
+
+type Section struct {
+	IdSection   string    `json:"id_section" db:"id_section"`
+	Key         string    `json:"key" db:"key"`
+	Name        string    `json:"name" db:"name"`
+	Description string    `json:"description" db:"description"`
+	Active      bool      `json:"active" db:"active"`
+	CreatedAt   time.Time `json:"created_at" db:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at" db:"updated_at"`
 }
 
-type UpdateProcessRequest struct {
-	IdProcess string `json:"id_process" validate:"notzero"`
+type Contents []*Content
 
-	Body struct {
-		Type           string         `json:"type" validate:"notzero"`
-		Name           string         `json:"name" validate:"notzero"`
-		Description    string         `json:"description"`
-		DateFrom       *types.Date    `json:"date_from" validate:"special={date}"`
-		DateTo         *types.Date    `json:"date_to" validate:"special={date}"`
-		TimeFrom       *types.Time    `json:"time_from" validate:"special={time}"`
-		TimeTo         *types.Time    `json:"time_to" validate:"special={time}"`
-		DaysOff        *types.ListDay `json:"days_off" validate:"options=monday;tuesday;wednesday;thursday;friday;saturday;sunday"`
-		Authentication string         `json:"monitor"`
-	}
-}
-
-type User struct {
-	IdUser       string    `json:"id_user" db:"id_user"`
-	FirstName    string    `json:"first_name" db:"first_name"`
-	LastName     string    `json:"last_name" db:"last_name"`
-	Email        string    `json:"email" db:"email"`
-	RefreshToken string    `json:"refresh_token" db:"refresh_token"`
-	Active       bool      `json:"active" db:"active"`
-	CreatedAt    time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt    time.Time `json:"updated_at" db:"updated_at"`
+type Content struct {
+	Key       string           `json:"key" db:"key"`
+	Content   *json.RawMessage `json:"content" db:"content"`
+	Active    bool             `json:"active" db:"active"`
+	CreatedAt time.Time        `json:"created_at" db:"created_at"`
+	UpdatedAt time.Time        `json:"updated_at" db:"updated_at"`
 }

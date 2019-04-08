@@ -1,15 +1,15 @@
-package session
+package profile
 
 import (
 	"github.com/joaosoft/dbr"
 )
 
 type StoragePostgres struct {
-	config *SessionConfig
+	config *ProfileConfig
 	db     *dbr.Dbr
 }
 
-func NewStoragePostgres(config *SessionConfig) (*StoragePostgres, error) {
+func NewStoragePostgres(config *ProfileConfig) (*StoragePostgres, error) {
 	dbr, err := dbr.New(dbr.WithConfiguration(config.Dbr))
 	if err != nil {
 		return nil, err
@@ -21,15 +21,31 @@ func NewStoragePostgres(config *SessionConfig) (*StoragePostgres, error) {
 	}, nil
 }
 
-func (storage *StoragePostgres) GetUserByIdUserAndRefreshToken(idUser, refreshToken string) (*User, error) {
-	user := &User{}
+func (storage *StoragePostgres) GetSections() (Sections, error) {
+	sections := make(Sections, 0)
+
+	_, err := storage.db.
+		Select("*").
+		From(dbr.As(profileTableSection, "s")).
+		Where("s.active").
+		Load(&sections)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return sections, nil
+}
+
+func (storage *StoragePostgres) GetSection(sectionKey string) (*Section, error) {
+	section := Section{}
+
 	count, err := storage.db.
 		Select("*").
-		From("session.user").
-		Where("id_user = ?", idUser).
-		Where("refresh_token = ?", refreshToken).
-		Where("active").
-		Load(user)
+		From(dbr.As(profileTableSection, "s")).
+		Where("s.key = ?", sectionKey).
+		Where("s.active").
+		Load(&section)
 
 	if err != nil {
 		return nil, err
@@ -39,46 +55,24 @@ func (storage *StoragePostgres) GetUserByIdUserAndRefreshToken(idUser, refreshTo
 		return nil, nil
 	}
 
-	return user, nil
+	return &section, nil
 }
 
-func (storage *StoragePostgres) GetUserByEmailAndPassword(email, password string) (*User, error) {
-	user := &User{}
-	count, err := storage.db.
+func (storage *StoragePostgres) GetSectionContents(sectionKey string) (Contents, error) {
+	contents := make(Contents, 0)
+
+	_, err := storage.db.
 		Select("*").
-		From("session.user").
-		Where("email = ?", email).
-		Where("password_hash = ?", password).
-		Where("active").
-		Load(user)
+		From(dbr.As(profileTableSection, "s")).
+		Join(dbr.As(profileTableContent, "c"), "c.fk_section = s.id_section").
+		Where("s.active").
+		Where("c.active").
+		Where("s.key = ?", sectionKey).
+		Load(&contents)
 
 	if err != nil {
 		return nil, err
 	}
 
-	if count == 0 {
-		return nil, nil
-	}
-
-	return user, nil
-}
-
-func (storage *StoragePostgres) UpdateUserRefreshToken(idUser, refreshToken string) error {
-	result, err := storage.db.
-		Update("session.user").
-		Set("refresh_token", refreshToken).
-		Where("id_user = ?", idUser).
-		Where("active").
-		Exec()
-
-	if err != nil {
-		return err
-	}
-
-	rowsAffected, _ := result.RowsAffected()
-	if rowsAffected == 0 {
-		return ErrorNotFound
-	}
-
-	return nil
+	return contents, nil
 }

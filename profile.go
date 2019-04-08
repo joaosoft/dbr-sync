@@ -1,4 +1,4 @@
-package session
+package profile
 
 import (
 	"sync"
@@ -8,22 +8,22 @@ import (
 	migration "github.com/joaosoft/migration/services"
 )
 
-type Session struct {
-	config        *SessionConfig
+type Profile struct {
+	config        *ProfileConfig
 	isLogExternal bool
 	pm            *manager.Manager
 	logger        logger.ILogger
 	mux           sync.Mutex
 }
 
-// NewSession ...
-func NewSession(options ...SessionOption) (*Session, error) {
+// NewProfile ...
+func NewProfile(options ...ProfileOption) (*Profile, error) {
 	config, simpleConfig, err := NewConfig()
 
-	service := &Session{
+	service := &Profile{
 		pm:     manager.NewManager(manager.WithRunInBackground(false)),
-		logger: logger.NewLogDefault("session", logger.WarnLevel),
-		config: config.Session,
+		logger: logger.NewLogDefault("profile", logger.WarnLevel),
+		config: config.Profile,
 	}
 
 	if service.isLogExternal {
@@ -32,13 +32,13 @@ func NewSession(options ...SessionOption) (*Session, error) {
 
 	if err != nil {
 		service.logger.Error(err.Error())
-	} else if config.Session != nil {
+	} else if config.Profile != nil {
 		service.pm.AddConfig("config_app", simpleConfig)
-		level, _ := logger.ParseLevel(config.Session.Log.Level)
+		level, _ := logger.ParseLevel(config.Profile.Log.Level)
 		service.logger.Debugf("setting log level to %s", level)
 		service.logger.Reconfigure(logger.WithLevel(level))
 	} else {
-		config.Session = &SessionConfig{
+		config.Profile = &ProfileConfig{
 			Host: defaultURL,
 		}
 	}
@@ -55,16 +55,16 @@ func NewSession(options ...SessionOption) (*Session, error) {
 		return nil, err
 	}
 
-	web := service.pm.NewSimpleWebServer(config.Session.Host)
+	web := service.pm.NewSimpleWebServer(config.Profile.Host)
 
-	storage, err := NewStoragePostgres(config.Session)
+	storage, err := NewStoragePostgres(config.Profile)
 	if err != nil {
 		return nil, err
 	}
 
-	interactor := NewInteractor(config.Session, storage)
+	interactor := NewInteractor(service.logger, storage)
 
-	controller := NewController(config.Session, interactor)
+	controller := NewController(config.Profile, interactor)
 	controller.RegisterRoutes(web)
 
 	service.pm.AddWeb("api_web", web)
@@ -73,11 +73,11 @@ func NewSession(options ...SessionOption) (*Session, error) {
 }
 
 // Start ...
-func (m *Session) Start() error {
+func (m *Profile) Start() error {
 	return m.pm.Start()
 }
 
 // Stop ...
-func (m *Session) Stop() error {
+func (m *Profile) Stop() error {
 	return m.pm.Stop()
 }

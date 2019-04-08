@@ -1,4 +1,4 @@
-package session
+package profile
 
 import (
 	"fmt"
@@ -11,15 +11,13 @@ import (
 
 // AppConfig ...
 type AppConfig struct {
-	Session *SessionConfig `json:"session"`
+	Profile *ProfileConfig `json:"profile"`
 }
 
-// SessionConfig ...
-type SessionConfig struct {
+// ProfileConfig ...
+type ProfileConfig struct {
 	Host              string                     `json:"host"`
 	Dbr               *dbr.DbrConfig             `json:"dbr"`
-	TokenKey          string                     `json:"token_key"`
-	ExpirationMinutes int64                      `json:"expiration_minutes"`
 	Migration         *migration.MigrationConfig `json:"migration"`
 	Log               struct {
 		Level string `json:"level"`

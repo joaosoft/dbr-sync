@@ -1,9 +1,11 @@
 
 -- migrate up
-CREATE SCHEMA IF NOT EXISTS "session";
 
+-- schema
+CREATE SCHEMA IF NOT EXISTS "profile";
 
-CREATE OR REPLACE FUNCTION "session".function_updated_at()
+-- functions
+CREATE OR REPLACE FUNCTION "profile".function_updated_at()
   RETURNS TRIGGER AS $$
   BEGIN
    NEW.updated_at = now();
@@ -11,27 +13,53 @@ CREATE OR REPLACE FUNCTION "session".function_updated_at()
   END;
   $$ LANGUAGE 'plpgsql';
 
-CREATE TABLE "session"."user" (
-	id_user 		    TEXT PRIMARY KEY,
-	first_name		    TEXT NOT NULL,
-	last_name			TEXT NOT NULL,
-	email 				TEXT UNIQUE NOT NULL,
-	password_hash   	TEXT NOT NULL,
-	refresh_token		TEXT NOT NULL,
-	active				BOOLEAN DEFAULT TRUE NOT NULL,
+-- sections
+CREATE TABLE "profile"."section" (
+	id_section 		    TEXT PRIMARY KEY,
+	"key"               TEXT NOT NULL UNIQUE,
+	"name"    		    TEXT NOT NULL,
+	description			TEXT NOT NULL,
+	"active"			BOOLEAN DEFAULT TRUE NOT NULL,
 	created_at			TIMESTAMP DEFAULT NOW(),
 	updated_at			TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TRIGGER trigger_user_updated_at BEFORE UPDATE
-  ON "session"."user" FOR EACH ROW EXECUTE PROCEDURE "session".function_updated_at();
+
+-- section contents
+CREATE TABLE "profile"."content" (
+    id_content 		            TEXT PRIMARY KEY,
+    "key"                       TEXT NOT NULL UNIQUE,
+	fk_section                  TEXT NOT NULL REFERENCES "profile"."section" (id_section),
+	"content"                   JSONB NOT NULL,
+	"active"			        BOOLEAN DEFAULT TRUE NOT NULL,
+	created_at			        TIMESTAMP DEFAULT NOW(),
+	updated_at			        TIMESTAMP DEFAULT NOW()
+);
+
+-- triggers
+CREATE TRIGGER trigger_section_updated_at BEFORE UPDATE
+  ON "profile"."section" FOR EACH ROW EXECUTE PROCEDURE "profile".function_updated_at();
+
+CREATE TRIGGER trigger_content_updated_at BEFORE UPDATE
+  ON "profile"."content" FOR EACH ROW EXECUTE PROCEDURE "profile".function_updated_at();
+
+
+
+
 
 
 -- migrate down
-DROP TRIGGER trigger_user_updated_at ON session."user"
 
-DROP TABLE "session"."user";
+-- triggers
+DROP TRIGGER trigger_section_updated_at ON profile."section";
+DROP TRIGGER trigger_content_updated_at ON profile."content";
 
-DROP FUNCTION "session".function_updated_at;
+-- tables
+DROP TABLE "profile"."section";
+DROP TABLE "profile"."content";
 
-DROP SCHEMA "session";
+-- functions
+DROP FUNCTION "profile".function_updated_at;
+
+-- schema
+DROP SCHEMA "profile";

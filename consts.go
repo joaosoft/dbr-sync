@@ -1,4 +1,4 @@
-package session
+package profile
 
 const (
 	defaultURL      = "http://localhost:8001"

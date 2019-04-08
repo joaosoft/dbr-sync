@@ -1,11 +1,10 @@
 {
-  "session": {
-    "host": "localhost:8001",
-    "token_key": "banana",
+  "profile": {
+    "host": "localhost:9001",
     "dbr": {
       "db": {
         "driver": "postgres",
-        "datasource": "postgres://user:password@localhost:7000/postgres?sslmode=disable&search_path=session"
+        "datasource": "postgres://user:password@localhost:7000/postgres?sslmode=disable&search_path=profile"
       }
     },
     "log": {
@@ -16,9 +15,9 @@
         "database": "schema/db/postgres"
       },
       "db": {
-        "schema": "session",
+        "schema": "profile",
         "driver": "postgres",
-        "datasource": "postgres://user:password@localhost:7000/postgres?sslmode=disable&search_path=session"
+        "datasource": "postgres://user:password@localhost:7000/postgres?sslmode=disable&search_path=profile"
       },
       "log": {
         "level": "info"

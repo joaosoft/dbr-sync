@@ -1,14 +1,14 @@
 package main
 
-import "session"
+import "profile"
 
 func main() {
-	m, err := session.NewSession()
+	p, err := profile.NewProfile()
 	if err != nil {
 		panic(err)
 	}
 
-	if err := m.Start(); err != nil {
+	if err := p.Start(); err != nil {
 		panic(err)
 	}
 }

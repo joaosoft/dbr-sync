@@ -1,39 +1,112 @@
-# session
-[![Build Status](https://travis-ci.org/joaosoft/session.svg?branch=master)](https://travis-ci.org/joaosoft/session) | [![codecov](https://codecov.io/gh/joaosoft/session/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/session) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/session)](https://goreportcard.com/report/github.com/joaosoft/session) | [![GoDoc](https://godoc.org/github.com/joaosoft/session?status.svg)](https://godoc.org/github.com/joaosoft/session)
+# profile
+[![Build Status](https://travis-ci.org/joaosoft/profile.svg?branch=master)](https://travis-ci.org/joaosoft/profile) | [![codecov](https://codecov.io/gh/joaosoft/profile/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/profile) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/profile)](https://goreportcard.com/report/github.com/joaosoft/profile) | [![GoDoc](https://godoc.org/github.com/joaosoft/profile?status.svg)](https://godoc.org/github.com/joaosoft/profile)
 
-A service that allows you to get a new session token and when invalid refresh the session token (WST, Web Security Token) [github](https://github.com/joaosoft/auth-types/wst).
+A service used on a web site for a person profile (Web Site) [github](https://github.com/joaosoft/vue-profile).
 
 
 ###### If i miss something or you have something interesting, please be part of this project. Let me know! My contact is at the end.
 
 ## With support for
-* Get session
-* Refresh session with refresh token
+* Get sections
+* Get a section
+* Get a section contents
 
 ## Endpoints
-* **Get Session:** 
+* **Get sections:** 
 
     Method: GET
 
-    Route: http://localhost:8001/api/v1/get-session
+    Route: http://localhost:9001/api/v1/profile/sections
+    
+    Body: 
+    ```
+    [
+        {
+            "id_section": "1",
+            "key": "home",
+            "name": "Home",
+            "description": "Home Section",
+            "active": true,
+            "created_at": "2019-04-08T18:23:48.830695Z",
+            "updated_at": "2019-04-08T18:23:48.830695Z"
+        },
+        {
+            "id_section": "2",
+            "key": "projects",
+            "name": "Projects",
+            "description": "Projects Section",
+            "active": true,
+            "created_at": "2019-04-08T18:23:48.830695Z",
+            "updated_at": "2019-04-08T18:23:48.830695Z"
+        },
+        {
+            "id_section": "3",
+            "key": "about",
+            "name": "About",
+            "description": "About Section",
+            "active": true,
+            "created_at": "2019-04-08T18:23:48.830695Z",
+            "updated_at": "2019-04-08T18:23:48.830695Z"
+        }
+    ]
+    ```
+
+* **Get a section:** 
+
+    Method: PUT
+    
+    Route: http://localhost:9001/api/v1/profile/sections/home
     
     Body: 
     ```
     {
-        "email": "joaosoft@gmail.com",
-        "password": "698dc19d489c4e4db73e28a713eab07b"
+        "id_section": "1",
+        "key": "home",
+        "name": "Home",
+        "description": "Home Section",
+        "active": true,
+        "created_at": "2019-04-08T18:23:48.830695Z",
+        "updated_at": "2019-04-08T18:23:48.830695Z"
     }
     ```
 
-* **Refresh session:** 
+* **Get a section contents:** 
 
     Method: PUT
     
-    Route: http://localhost:8001/api/v1/get-session
+    Route: http://localhost:9001/api/v1/profile/sections/projects/contents
     
-    Headers:
+    Body: 
     ```
-    Authorization: Bearer 53464673625464434c557442584467316144776f4d574530535842475258466e54444e624c6a4230504352495877.53464673625542424d45386d5755596f53305532516d7841624455764d46786c505439615a30596b52567368543263775a44677562554d7a4e4338324d31737564575642545542505354466a556964455155315163577378597a633554533953586c56755155306a576b74424d6d34745654466f4a6a704f51564a6a627a67734a7935744f5377684a47396e51564d73633239474b4751755355526c6158416c4c436777.4f56737a4e57417350436c71534370695655516a62304a6e546d6f725657413551445976526d676c4a6b52725845684e625678524e6b6b32624664304e4367775a5759744c6a5a796231417662536b6f
+    [
+        {
+            "key": "dbr",
+            "content": {
+                "title": "dbr"
+            },
+            "active": true,
+            "created_at": "2019-04-08T18:23:48.830695Z",
+            "updated_at": "2019-04-08T18:23:48.830695Z"
+        },
+        {
+            "key": "web",
+            "content": {
+                "title": "web"
+            },
+            "active": true,
+            "created_at": "2019-04-08T18:23:48.830695Z",
+            "updated_at": "2019-04-08T18:23:48.830695Z"
+        },
+        {
+            "key": "validator",
+            "content": {
+                "title": "validator"
+            },
+            "active": true,
+            "created_at": "2019-04-08T18:23:48.830695Z",
+            "updated_at": "2019-04-08T18:23:48.830695Z"
+        }
+    ]
     ```
 
 ## Dependecy Management
@@ -46,7 +119,7 @@ Project dependencies are managed using Dep. Read more about [Dep](https://github
 
 >### Go
 ```
-go get github.com/joaosoft/session
+go get github.com/joaosoft/profile
 ```
 
 ## Known issues

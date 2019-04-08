@@ -1,14 +1,14 @@
-package session
+package profile
 
 import (
-	"net/http"
-
 	"github.com/joaosoft/manager"
+	"github.com/joaosoft/web"
 )
 
-func (c *Controller) RegisterRoutes(web manager.IWeb) error {
-	return web.AddRoutes(
-		manager.NewRoute(http.MethodGet, "/api/v1/get-session", c.GetSessionHandler),
-		manager.NewRoute(http.MethodPut, "/api/v1/refresh-session", c.RefreshSessionHandler),
+func (c *Controller) RegisterRoutes(w manager.IWeb) error {
+	return w.AddRoutes(
+		manager.NewRoute(string(web.MethodGet), "/api/v1/profile/sections", c.GetSectionsHandler),
+		manager.NewRoute(string(web.MethodGet), "/api/v1/profile/sections/:section_key", c.GetSectionHandler),
+		manager.NewRoute(string(web.MethodGet), "/api/v1/profile/sections/:section_key/contents", c.GetSectionContentsHandler),
 	)
 }
