@@ -45,6 +45,7 @@ func (storage *StoragePostgres) GetSection(sectionKey string) (*Section, error) 
 		From(dbr.As(profileTableSection, "s")).
 		Where("s.key = ?", sectionKey).
 		Where("s.active").
+		OrderAsc("s.position").
 		Load(&section)
 
 	if err != nil {
@@ -68,6 +69,7 @@ func (storage *StoragePostgres) GetSectionContents(sectionKey string) (Contents,
 		Where("s.active").
 		Where("c.active").
 		Where("s.key = ?", sectionKey).
+		OrderAsc("c.position").
 		Load(&contents)
 
 	if err != nil {

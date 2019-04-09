@@ -26,7 +26,6 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
             "key": "home",
             "name": "Home",
             "description": "Home Section",
-            "active": true,
             "created_at": "2019-04-08T18:23:48.830695Z",
             "updated_at": "2019-04-08T18:23:48.830695Z"
         },
@@ -35,7 +34,6 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
             "key": "projects",
             "name": "Projects",
             "description": "Projects Section",
-            "active": true,
             "created_at": "2019-04-08T18:23:48.830695Z",
             "updated_at": "2019-04-08T18:23:48.830695Z"
         },
@@ -44,7 +42,6 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
             "key": "about",
             "name": "About",
             "description": "About Section",
-            "active": true,
             "created_at": "2019-04-08T18:23:48.830695Z",
             "updated_at": "2019-04-08T18:23:48.830695Z"
         }
@@ -64,7 +61,6 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
         "key": "home",
         "name": "Home",
         "description": "Home Section",
-        "active": true,
         "created_at": "2019-04-08T18:23:48.830695Z",
         "updated_at": "2019-04-08T18:23:48.830695Z"
     }
@@ -84,7 +80,6 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
             "content": {
                 "title": "dbr"
             },
-            "active": true,
             "created_at": "2019-04-08T18:23:48.830695Z",
             "updated_at": "2019-04-08T18:23:48.830695Z"
         },
@@ -93,7 +88,6 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
             "content": {
                 "title": "web"
             },
-            "active": true,
             "created_at": "2019-04-08T18:23:48.830695Z",
             "updated_at": "2019-04-08T18:23:48.830695Z"
         },
@@ -102,7 +96,6 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
             "content": {
                 "title": "validator"
             },
-            "active": true,
             "created_at": "2019-04-08T18:23:48.830695Z",
             "updated_at": "2019-04-08T18:23:48.830695Z"
         }

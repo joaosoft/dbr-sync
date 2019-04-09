@@ -29,7 +29,6 @@ type Section struct {
 	Key         string    `json:"key" db:"key"`
 	Name        string    `json:"name" db:"name"`
 	Description string    `json:"description" db:"description"`
-	Active      bool      `json:"active" db:"active"`
 	CreatedAt   time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at" db:"updated_at"`
 }
@@ -39,7 +38,6 @@ type Contents []*Content
 type Content struct {
 	Key       string           `json:"key" db:"key"`
 	Content   *json.RawMessage `json:"content" db:"content"`
-	Active    bool             `json:"active" db:"active"`
 	CreatedAt time.Time        `json:"created_at" db:"created_at"`
 	UpdatedAt time.Time        `json:"updated_at" db:"updated_at"`
 }

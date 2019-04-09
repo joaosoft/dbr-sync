@@ -19,6 +19,7 @@ CREATE TABLE "profile"."section" (
 	"key"               TEXT NOT NULL UNIQUE,
 	"name"    		    TEXT NOT NULL,
 	description			TEXT NOT NULL,
+	position            INTEGER NOT NULL UNIQUE,
 	"active"			BOOLEAN DEFAULT TRUE NOT NULL,
 	created_at			TIMESTAMP DEFAULT NOW(),
 	updated_at			TIMESTAMP DEFAULT NOW()
@@ -31,9 +32,11 @@ CREATE TABLE "profile"."content" (
     "key"                       TEXT NOT NULL UNIQUE,
 	fk_section                  TEXT NOT NULL REFERENCES "profile"."section" (id_section),
 	"content"                   JSONB NOT NULL,
+    position                    INTEGER NOT NULL,
 	"active"			        BOOLEAN DEFAULT TRUE NOT NULL,
 	created_at			        TIMESTAMP DEFAULT NOW(),
-	updated_at			        TIMESTAMP DEFAULT NOW()
+	updated_at			        TIMESTAMP DEFAULT NOW(),
+	UNIQUE(fk_section, "position")
 );
 
 -- triggers
