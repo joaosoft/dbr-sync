@@ -8,6 +8,7 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
 
 ## With support for
 * Get sections
+* Get sections with contents
 * Get a section
 * Get a section contents
 
@@ -26,28 +27,83 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
             "key": "home",
             "name": "Home",
             "description": "Home Section",
-            "created_at": "2019-04-08T18:23:48.830695Z",
-            "updated_at": "2019-04-08T18:23:48.830695Z"
         },
         {
             "id_section": "2",
             "key": "projects",
             "name": "Projects",
             "description": "Projects Section",
-            "created_at": "2019-04-08T18:23:48.830695Z",
-            "updated_at": "2019-04-08T18:23:48.830695Z"
         },
         {
             "id_section": "3",
             "key": "about",
             "name": "About",
             "description": "About Section",
-            "created_at": "2019-04-08T18:23:48.830695Z",
-            "updated_at": "2019-04-08T18:23:48.830695Z"
         }
     ]
     ```
 
+* **Get sections with contents:** 
+
+    Method: GET
+
+    Route: http://localhost:9001/api/v1/profile/sections/contents
+    
+    Body: 
+    ```
+    [
+        {
+            "id_section": "1",
+            "key": "home",
+            "name": "Home",
+            "description": "Home Section",
+            "contents": []
+        },
+        {
+            "id_section": "2",
+            "key": "projects",
+            "name": "Projects",
+            "description": "Projects Section",
+            "contents": [
+                {
+                    "key": "dbr",
+                    "content": {
+                        "url": "https://github.com/joaosoft/dbr",
+                        "build": "https://travis-ci.org/joaosoft/dbr.svg?branch=master",
+                        "title": "Dbr",
+                        "description": "A simple database client with support for master/slave databases."
+                    }
+                },
+                {
+                    "key": "web",
+                    "content": {
+                        "url": "https://github.com/joaosoft/web",
+                        "build": "https://travis-ci.org/joaosoft/web.svg?branch=master",
+                        "title": "Web",
+                        "description": "A simple and fast web server and client."
+                    }
+                },
+                {
+                    "key": "validator",
+                    "content": {
+                        "url": "https://github.com/joaosoft/validator",
+                        "build": "https://travis-ci.org/joaosoft/validator.svg?branch=master",
+                        "title": "Validator",
+                        "description": "A simple struct validator by tags."
+                    }
+                }
+            ]
+        },
+        {
+            "id_section": "3",
+            "key": "about",
+            "name": "About",
+            "description": "About Section",
+            "contents": []
+        }
+    ]
+    ```
+    
 * **Get a section:** 
 
     Method: PUT
@@ -61,8 +117,6 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
         "key": "home",
         "name": "Home",
         "description": "Home Section",
-        "created_at": "2019-04-08T18:23:48.830695Z",
-        "updated_at": "2019-04-08T18:23:48.830695Z"
     }
     ```
 
@@ -80,24 +134,18 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
             "content": {
                 "title": "dbr"
             },
-            "created_at": "2019-04-08T18:23:48.830695Z",
-            "updated_at": "2019-04-08T18:23:48.830695Z"
         },
         {
             "key": "web",
             "content": {
                 "title": "web"
             },
-            "created_at": "2019-04-08T18:23:48.830695Z",
-            "updated_at": "2019-04-08T18:23:48.830695Z"
         },
         {
             "key": "validator",
             "content": {
                 "title": "validator"
             },
-            "created_at": "2019-04-08T18:23:48.830695Z",
-            "updated_at": "2019-04-08T18:23:48.830695Z"
         }
     ]
     ```

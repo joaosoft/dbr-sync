@@ -6,5 +6,6 @@ import (
 )
 
 var (
-	ErrorNotFound = errors.New(errors.ErrorLevel, int(web.StatusNotFound), "user not found")
+	ErrorNotFound    = errors.New(errors.ErrorLevel, int(web.StatusNotFound), "user not found")
+	ErrorInvalidType = errors.New(errors.ErrorLevel, int(web.StatusNotFound), "invalid type")
 )

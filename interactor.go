@@ -5,9 +5,10 @@ import (
 )
 
 type IStorageDB interface {
-	GetSections() (Sections, error)
+	GetSections() (SectionList, error)
+	GetSectionsContents() (SectionsContentsList, error)
 	GetSection(sectionKey string) (*Section, error)
-	GetSectionContents(sectionKey string) (Contents, error)
+	GetSectionContents(sectionKey string) (ContentList, error)
 }
 
 type Interactor struct {
@@ -22,7 +23,7 @@ func NewInteractor(logger logger.ILogger, storageDB IStorageDB) *Interactor {
 	}
 }
 
-func (i *Interactor) GetSections() (Sections, error) {
+func (i *Interactor) GetSections() (SectionList, error) {
 	i.logger.WithFields(map[string]interface{}{"method": "GetSections"})
 	i.logger.Info("getting sections")
 	sections, err := i.storage.GetSections()
@@ -32,6 +33,18 @@ func (i *Interactor) GetSections() (Sections, error) {
 	}
 
 	return sections, err
+}
+
+func (i *Interactor) GetSectionsContents() (SectionsContentsList, error) {
+	i.logger.WithFields(map[string]interface{}{"method": "GetSectionsContents"})
+	i.logger.Info("getting sections contents")
+	sectionsContents, err := i.storage.GetSectionsContents()
+	if err != nil {
+		i.logger.WithFields(map[string]interface{}{"error": err.Error()}).Errorf("error getting sections contents %s", err).ToError()
+		return nil, err
+	}
+
+	return sectionsContents, err
 }
 
 func (i *Interactor) GetSection(request *GetSectionRequest) (*Section, error) {
@@ -49,7 +62,7 @@ func (i *Interactor) GetSection(request *GetSectionRequest) (*Section, error) {
 	return section, err
 }
 
-func (i *Interactor) GetSectionContents(request *GetSectionContentsRequest) (Contents, error) {
+func (i *Interactor) GetSectionContents(request *GetSectionContentsRequest) (ContentList, error) {
 	i.logger.WithFields(map[string]interface{}{"method": "GetSection"})
 
 	i.logger.Infof("getting section contents [section key: %s]", request.SectionKey)

@@ -1,11 +1,10 @@
 package profile
 
 import (
+	"database/sql/driver"
 	"encoding/json"
 
 	"github.com/joaosoft/web"
-
-	"time"
 )
 
 type ErrorResponse struct {
@@ -22,22 +21,46 @@ type GetSectionContentsRequest struct {
 	SectionKey string `json:"section_key" validate:"notzero"`
 }
 
-type Sections []*Section
+type SectionList []*Section
 
 type Section struct {
-	IdSection   string    `json:"id_section" db:"id_section"`
-	Key         string    `json:"key" db:"key"`
-	Name        string    `json:"name" db:"name"`
-	Description string    `json:"description" db:"description"`
-	CreatedAt   time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at" db:"updated_at"`
+	IdSection   string `json:"id_section" db:"id_section"`
+	Key         string `json:"key" db:"key"`
+	Name        string `json:"name" db:"name"`
+	Description string `json:"description" db:"description"`
 }
 
-type Contents []*Content
+type ContentList []*Content
 
 type Content struct {
-	Key       string           `json:"key" db:"key"`
-	Content   *json.RawMessage `json:"content" db:"content"`
-	CreatedAt time.Time        `json:"created_at" db:"created_at"`
-	UpdatedAt time.Time        `json:"updated_at" db:"updated_at"`
+	Key     string           `json:"key" db:"key"`
+	Content *json.RawMessage `json:"content" db:"content"`
+}
+
+type SectionsContentsList []*SectionContents
+
+type SectionContents struct {
+	Section
+	Contents *ContentList `json:"contents" db:"contents"`
+}
+
+func (l *ContentList) Value() (driver.Value, error) {
+	j, err := json.Marshal(l)
+	return j, err
+}
+func (l *ContentList) Scan(src interface{}) error {
+	if src == nil {
+		return nil
+	}
+	source, ok := src.([]byte)
+	if !ok {
+		return ErrorInvalidType
+	}
+
+	err := json.Unmarshal(source, l)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

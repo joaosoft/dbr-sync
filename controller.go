@@ -26,6 +26,15 @@ func (c *Controller) GetSectionsHandler(ctx *web.Context) error {
 	return ctx.Response.JSON(web.StatusOK, response)
 }
 
+func (c *Controller) GetSectionsContentsHandler(ctx *web.Context) error {
+	response, err := c.interactor.GetSectionsContents()
+	if err != nil {
+		return ctx.Response.JSON(web.StatusInternalServerError, ErrorResponse{Code: web.StatusInternalServerError, Message: err.Error()})
+	}
+
+	return ctx.Response.JSON(web.StatusOK, response)
+}
+
 func (c *Controller) GetSectionHandler(ctx *web.Context) error {
 	request := &GetSectionRequest{}
 
