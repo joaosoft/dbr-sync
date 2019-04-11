@@ -33,8 +33,9 @@ type Section struct {
 type ContentList []*Content
 
 type Content struct {
-	Key     string           `json:"key" db:"key"`
-	Content *json.RawMessage `json:"content" db:"content"`
+	IdContent string           `json:"id_content" db:"id_content"`
+	Key       string           `json:"key" db:"key"`
+	Content   *json.RawMessage `json:"content" db:"content"`
 }
 
 type SectionsContentsList []*SectionContents
