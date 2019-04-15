@@ -121,11 +121,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:fd761e61e36a5c4cacb6cd24c8f94b027be695cddf5bc7e2016ab74f54e255bf"
+  digest = "1:efe13b156c95ef7fab22325239948c3b0a90a6d6deafabd99e8e0d903fe26fb4"
   name = "github.com/joaosoft/validator"
   packages = ["."]
   pruneopts = "UT"
-  revision = "edd5f0583eb7ea48650634cb8c27dfcbaf5c7830"
+  revision = "28ca7b7293444f14ef522afd5808dc18649a57ed"
 
 [[projects]]
   branch = "master"
