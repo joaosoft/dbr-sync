@@ -73,11 +73,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d16c9798985ba82bc6a0ab0f766dd095391a6eccf9988ad98267be2e6e9d3123"
+  digest = "1:e962cdd41bb950dde9704b17694f1d8e6381d4f766932c859a8219734447d3dc"
   name = "github.com/joaosoft/dbr"
   packages = ["."]
   pruneopts = "UT"
-  revision = "c6611df9bba705fc6057e9ab462a7296663f237d"
+  revision = "2302640403da6cab56990d37a9c9b17b0d91285d"
 
 [[projects]]
   branch = "master"
@@ -86,6 +86,14 @@
   packages = ["."]
   pruneopts = "UT"
   revision = "ca3111f742816c05f282ac530763f3baca241fe3"
+
+[[projects]]
+  branch = "master"
+  digest = "1:dc4c6cbe6a1928ae5f56578f19d1045348d5a8b179f608f29fdcca276ab8e028"
+  name = "github.com/joaosoft/json"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "b55094b11c0a3c09774aff57d6185b53e4e007f4"
 
 [[projects]]
   branch = "master"
@@ -113,11 +121,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:739eefed3577eb24ff5bfb7d8643831d338e62d916b1eca6f01b2e7779146a7d"
+  digest = "1:fd761e61e36a5c4cacb6cd24c8f94b027be695cddf5bc7e2016ab74f54e255bf"
   name = "github.com/joaosoft/validator"
   packages = ["."]
   pruneopts = "UT"
-  revision = "3d2aa2dc8db7f41e5302252ed8a1fe20ad13e9fb"
+  revision = "edd5f0583eb7ea48650634cb8c27dfcbaf5c7830"
 
 [[projects]]
   branch = "master"
@@ -297,15 +305,15 @@
     "acme/autocert",
   ]
   pruneopts = "UT"
-  revision = "38d8ce5564a5b71b2e3a00553993f1b9a7ae852f"
+  revision = "88737f569e3a9c7ab309cdc09a07fe7fc87233c3"
 
 [[projects]]
   branch = "master"
-  digest = "1:84b51049eed7e77dbd4009b3f5ead2ee5823bd18bfc02f9c6be9234248425b08"
+  digest = "1:3e01c69b34e7c3fa4b7a118ca95a6beaecea00f7f4fb701545d83eacd3badb3c"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "cc4d4f50624c67f0af3a3fa307f4be9ab9030144"
+  revision = "3fd5a3612ccd7907f26270fa92579a0f2f76f734"
 
 [[projects]]
   digest = "1:8029e9743749d4be5bc9f7d42ea1659471767860f0cdc34d37c3111bd308a295"

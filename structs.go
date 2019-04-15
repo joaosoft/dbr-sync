@@ -4,6 +4,7 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 
+	"github.com/joaosoft/dbr"
 	"github.com/joaosoft/web"
 )
 
@@ -35,6 +36,7 @@ type ContentList []*Content
 type Content struct {
 	IdContent string           `json:"id_content" db:"id_content"`
 	Key       string           `json:"key" db:"key"`
+	Type      string           `json:"type" db:"type"`
 	Content   *json.RawMessage `json:"content" db:"content"`
 }
 
@@ -46,7 +48,7 @@ type SectionContents struct {
 }
 
 func (l *ContentList) Value() (driver.Value, error) {
-	j, err := json.Marshal(l)
+	j, err := dbr.Marshal(l)
 	return j, err
 }
 func (l *ContentList) Scan(src interface{}) error {
@@ -58,7 +60,7 @@ func (l *ContentList) Scan(src interface{}) error {
 		return ErrorInvalidType
 	}
 
-	err := json.Unmarshal(source, l)
+	err := dbr.Unmarshal(source, l)
 	if err != nil {
 		return err
 	}

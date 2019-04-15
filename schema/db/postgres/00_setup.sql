@@ -26,11 +26,22 @@ CREATE TABLE "profile"."section" (
 );
 
 
+-- content type
+CREATE TABLE "profile"."content_type" (
+    id_content_type 		    TEXT PRIMARY KEY,
+    "key"                       TEXT NOT NULL UNIQUE,
+	"name"                      TEXT NOT NULL,
+	"active"			        BOOLEAN DEFAULT TRUE NOT NULL,
+	created_at			        TIMESTAMP DEFAULT NOW(),
+	updated_at			        TIMESTAMP DEFAULT NOW()
+);
+
 -- section contents
 CREATE TABLE "profile"."content" (
     id_content 		            TEXT PRIMARY KEY,
     "key"                       TEXT NOT NULL UNIQUE,
 	fk_section                  TEXT NOT NULL REFERENCES "profile"."section" (id_section),
+	fk_content_type             TEXT NOT NULL REFERENCES "profile"."content_type" (id_content_type),
 	"content"                   JSONB NOT NULL,
     position                    INTEGER NOT NULL,
 	"active"			        BOOLEAN DEFAULT TRUE NOT NULL,

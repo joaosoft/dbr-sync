@@ -7,6 +7,7 @@ func format(schema, table string) string {
 }
 
 var (
-	profileTableSection = format(schemaAcl, "section")
-	profileTableContent = format(schemaAcl, "content")
+	profileTableSection     = format(schemaAcl, "section")
+	profileTableContent     = format(schemaAcl, "content")
+	profileTableContentType = format(schemaAcl, "content_type")
 )

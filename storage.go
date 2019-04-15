@@ -25,7 +25,7 @@ func (storage *StoragePostgres) GetSections() (SectionList, error) {
 	sections := make(SectionList, 0)
 
 	_, err := storage.db.
-		Select("*").
+		Select([]interface{}{"s.id_section", "s.key", "s.name", "s.description"}...).
 		From(dbr.As(profileTableSection, "s")).
 		Where("s.active").
 		Load(&sections)
@@ -41,13 +41,13 @@ func (storage *StoragePostgres) GetSectionsContents() (SectionsContentsList, err
 	sectionsContents := make(SectionsContentsList, 0)
 
 	_, err := storage.db.
-		Select(
-			"*",
+		Select("s.id_section", "s.key", "s.name", "s.description",
 			dbr.OnNull(
 				storage.db.Select(dbr.ArrayToJson(dbr.ArrayAgg(dbr.RowToJson("t")))).
 					From(
 						dbr.As(storage.db.Select("*").
 							From(dbr.As(profileTableContent, "c")).
+							Join(dbr.As(profileTableContentType, "ct"), "ct.id_content_type = c.fk_content_type").
 							Where("c.fk_section = s.id_section").
 							Where("c.active").
 							OrderAsc("c.position"), "t")),
@@ -68,7 +68,7 @@ func (storage *StoragePostgres) GetSection(sectionKey string) (*Section, error) 
 	section := Section{}
 
 	count, err := storage.db.
-		Select("*").
+		Select([]interface{}{"s.id_section", "s.key", "s.name", "s.description"}...).
 		From(dbr.As(profileTableSection, "s")).
 		Where("s.key = ?", sectionKey).
 		Where("s.active").
@@ -90,11 +90,13 @@ func (storage *StoragePostgres) GetSectionContents(sectionKey string) (ContentLi
 	contents := make(ContentList, 0)
 
 	_, err := storage.db.
-		Select("*").
+		Select([]interface{}{"c.id_content", "c.key", dbr.As("ct.key", "type"), "c.content"}...).
 		From(dbr.As(profileTableSection, "s")).
 		Join(dbr.As(profileTableContent, "c"), "c.fk_section = s.id_section").
+		Join(dbr.As(profileTableContentType, "ct"), "ct.id_content_type = c.fk_content_type").
 		Where("s.active").
 		Where("c.active").
+		Where("ct.active").
 		Where("s.key = ?", sectionKey).
 		OrderAsc("c.position").
 		Load(&contents)
