@@ -45,7 +45,7 @@ func (storage *StoragePostgres) GetSectionsContents() (SectionsContentsList, err
 			dbr.OnNull(
 				storage.db.Select(dbr.ArrayToJson(dbr.ArrayAgg(dbr.RowToJson("t")))).
 					From(
-						dbr.As(storage.db.Select("*").
+						dbr.As(storage.db.Select("c.*", dbr.As("ct.key", "type")).
 							From(dbr.As(profileTableContent, "c")).
 							Join(dbr.As(profileTableContentType, "ct"), "ct.id_content_type = c.fk_content_type").
 							Where("c.fk_section = s.id_section").
@@ -86,24 +86,30 @@ func (storage *StoragePostgres) GetSection(sectionKey string) (*Section, error) 
 	return &section, nil
 }
 
-func (storage *StoragePostgres) GetSectionContents(sectionKey string) (ContentList, error) {
-	contents := make(ContentList, 0)
+func (storage *StoragePostgres) GetSectionContents(sectionKey string) (*SectionContents, error) {
+	sectionContents := SectionContents{}
 
 	_, err := storage.db.
-		Select([]interface{}{"c.id_content", "c.key", dbr.As("ct.key", "type"), "c.content"}...).
+		Select([]interface{}{"s.id_section", "s.key", "s.name", "s.description",
+			dbr.OnNull(
+				storage.db.Select(dbr.ArrayToJson(dbr.ArrayAgg(dbr.RowToJson("t")))).
+					From(
+						dbr.As(storage.db.Select("c.*", dbr.As("ct.key", "type")).
+							From(dbr.As(profileTableContent, "c")).
+							Join(dbr.As(profileTableContentType, "ct"), "ct.id_content_type = c.fk_content_type").
+							Where("c.fk_section = s.id_section").
+							Where("c.active").
+							OrderAsc("c.position"), "t")),
+				"[]", "contents")}...).
 		From(dbr.As(profileTableSection, "s")).
-		Join(dbr.As(profileTableContent, "c"), "c.fk_section = s.id_section").
-		Join(dbr.As(profileTableContentType, "ct"), "ct.id_content_type = c.fk_content_type").
 		Where("s.active").
-		Where("c.active").
-		Where("ct.active").
 		Where("s.key = ?", sectionKey).
-		OrderAsc("c.position").
-		Load(&contents)
+		OrderAsc("s.position").
+		Load(&sectionContents)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return contents, nil
+	return &sectionContents, nil
 }

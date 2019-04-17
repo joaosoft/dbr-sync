@@ -73,11 +73,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:e962cdd41bb950dde9704b17694f1d8e6381d4f766932c859a8219734447d3dc"
+  digest = "1:df215ea2213b583c5d90f1b749536b1507db71f6c96d097854e80c109bea69fa"
   name = "github.com/joaosoft/dbr"
   packages = ["."]
   pruneopts = "UT"
-  revision = "2302640403da6cab56990d37a9c9b17b0d91285d"
+  revision = "602c1fc67d775d8d7a7643d1501a363cd5c51bee"
 
 [[projects]]
   branch = "master"
@@ -89,11 +89,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:dc4c6cbe6a1928ae5f56578f19d1045348d5a8b179f608f29fdcca276ab8e028"
+  digest = "1:a0045adb889d5f2a2e336847d67fa5e4aa8e5a937831bc34411c947b14cac0c5"
   name = "github.com/joaosoft/json"
   packages = ["."]
   pruneopts = "UT"
-  revision = "b55094b11c0a3c09774aff57d6185b53e4e007f4"
+  revision = "34817ced19741a92754425f2f509dbf23d29cdb2"
 
 [[projects]]
   branch = "master"
@@ -163,15 +163,16 @@
   version = "v0.2.8"
 
 [[projects]]
-  digest = "1:8ef506fc2bb9ced9b151dafa592d4046063d744c646c1bbe801982ce87e4bc24"
+  digest = "1:bc1c0be40c67b6b4aee09d7508d5a2a52c1c116b1fa43806dad2b0d6b4d4003b"
   name = "github.com/lib/pq"
   packages = [
     ".",
     "oid",
+    "scram",
   ]
   pruneopts = "UT"
-  revision = "4ded0e9383f75c197b3a2aaa6d590ac52df6fd79"
-  version = "v1.0.0"
+  revision = "51e2106eed1cea199c802d2a49e91e2491b02056"
+  version = "v1.1.0"
 
 [[projects]]
   digest = "1:c568d7727aa262c32bdf8a3f7db83614f7af0ed661474b24588de635c20024c7"
@@ -309,11 +310,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:3e01c69b34e7c3fa4b7a118ca95a6beaecea00f7f4fb701545d83eacd3badb3c"
+  digest = "1:28d862f4f9bf2d1976d1d320481bff661b7565eb876d4df2a981f79e7f40e4cd"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "3fd5a3612ccd7907f26270fa92579a0f2f76f734"
+  revision = "12500544f89f9420afe9529ba8940bf72d294972"
 
 [[projects]]
   digest = "1:8029e9743749d4be5bc9f7d42ea1659471767860f0cdc34d37c3111bd308a295"

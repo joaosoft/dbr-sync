@@ -44,7 +44,7 @@ type SectionsContentsList []*SectionContents
 
 type SectionContents struct {
 	Section
-	Contents *ContentList `json:"contents" db:"contents"`
+	Contents ContentList `json:"contents" db:"contents"`
 }
 
 func (l *ContentList) Value() (driver.Value, error) {

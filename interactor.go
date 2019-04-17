@@ -8,7 +8,7 @@ type IStorageDB interface {
 	GetSections() (SectionList, error)
 	GetSectionsContents() (SectionsContentsList, error)
 	GetSection(sectionKey string) (*Section, error)
-	GetSectionContents(sectionKey string) (ContentList, error)
+	GetSectionContents(sectionKey string) (*SectionContents, error)
 }
 
 type Interactor struct {
@@ -62,17 +62,17 @@ func (i *Interactor) GetSection(request *GetSectionRequest) (*Section, error) {
 	return section, err
 }
 
-func (i *Interactor) GetSectionContents(request *GetSectionContentsRequest) (ContentList, error) {
+func (i *Interactor) GetSectionContents(request *GetSectionContentsRequest) (*SectionContents, error) {
 	i.logger.WithFields(map[string]interface{}{"method": "GetSection"})
 
 	i.logger.Infof("getting section contents [section key: %s]", request.SectionKey)
 
-	sections, err := i.storage.GetSectionContents(request.SectionKey)
+	sectionContents, err := i.storage.GetSectionContents(request.SectionKey)
 	if err != nil {
 		i.logger.WithFields(map[string]interface{}{"error": err.Error()}).
 			Errorf("error getting section contents [section key: %s] storage database %s", request.SectionKey, err).ToError()
 		return nil, err
 	}
 
-	return sections, err
+	return sectionContents, err
 }

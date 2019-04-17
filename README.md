@@ -55,9 +55,20 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
         {
             "id_section": "1",
             "key": "home",
-            "name": "Home",
+            "name": "Hello",
             "description": "Home Section",
-            "contents": []
+            "contents": [
+                {
+                    "id_content": "1",
+                    "key": "hello",
+                    "type": "project",
+                    "content": {
+                        "url": "https://www.facebook.com/joaosoft",
+                        "title": "I'm João Ribeiro",
+                        "description": "I like to code."
+                    }
+                }
+            ]
         },
         {
             "id_section": "2",
@@ -66,7 +77,9 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
             "description": "Projects Section",
             "contents": [
                 {
+                    "id_content": "2",
                     "key": "dbr",
+                    "type": "project",
                     "content": {
                         "url": "https://github.com/joaosoft/dbr",
                         "build": "https://travis-ci.org/joaosoft/dbr.svg?branch=master",
@@ -75,7 +88,9 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
                     }
                 },
                 {
+                    "id_content": "3",
                     "key": "web",
+                    "type": "project",
                     "content": {
                         "url": "https://github.com/joaosoft/web",
                         "build": "https://travis-ci.org/joaosoft/web.svg?branch=master",
@@ -84,7 +99,9 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
                     }
                 },
                 {
+                    "id_content": "4",
                     "key": "validator",
+                    "type": "project",
                     "content": {
                         "url": "https://github.com/joaosoft/validator",
                         "build": "https://travis-ci.org/joaosoft/validator.svg?branch=master",
@@ -97,9 +114,20 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
         {
             "id_section": "3",
             "key": "about",
-            "name": "About",
+            "name": "Goodbye",
             "description": "About Section",
-            "contents": []
+            "contents": [
+                {
+                    "id_content": "5",
+                    "key": "goodbuye",
+                    "type": "project",
+                    "content": {
+                        "url": "https://www.facebook.com/joaosoft",
+                        "title": "Thanks for reading",
+                        "description": "Find more about me..."
+                    }
+                }
+            ]
         }
     ]
     ```
@@ -128,26 +156,47 @@ A service used on a web site for a person profile (Web Site) [github](https://gi
     
     Body: 
     ```
-    [
-        {
-            "key": "dbr",
-            "content": {
-                "title": "dbr"
+    {
+        "id_section": "2",
+        "key": "projects",
+        "name": "Projects",
+        "description": "Projects Section",
+        "contents": [
+            {
+                "id_content": "2",
+                "key": "dbr",
+                "type": "project",
+                "content": {
+                    "url": "https://github.com/joaosoft/dbr",
+                    "build": "https://travis-ci.org/joaosoft/dbr.svg?branch=master",
+                    "title": "Dbr",
+                    "description": "A simple database client with support for master/slave databases."
+                }
             },
-        },
-        {
-            "key": "web",
-            "content": {
-                "title": "web"
+            {
+                "id_content": "3",
+                "key": "web",
+                "type": "project",
+                "content": {
+                    "url": "https://github.com/joaosoft/web",
+                    "build": "https://travis-ci.org/joaosoft/web.svg?branch=master",
+                    "title": "Web",
+                    "description": "A simple and fast web server and client."
+                }
             },
-        },
-        {
-            "key": "validator",
-            "content": {
-                "title": "validator"
-            },
-        }
-    ]
+            {
+                "id_content": "4",
+                "key": "validator",
+                "type": "project",
+                "content": {
+                    "url": "https://github.com/joaosoft/validator",
+                    "build": "https://travis-ci.org/joaosoft/validator.svg?branch=master",
+                    "title": "Validator",
+                    "description": "A simple struct validator by tags."
+                }
+            }
+        ]
+    }
     ```
 
 ## Dependecy Management
