@@ -1,4 +1,4 @@
-package profile
+package dbr_sync
 
 import (
 	"bufio"

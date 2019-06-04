@@ -1,10 +1,16 @@
 {
-  "profile": {
-    "host": "localhost:9001",
+  "dbr-sync": {
+    "rabbitmq": {
+      "uri": "amqp://root:password@localhost:5673/local",
+      "exchange": "dbr-sync-exchange",
+      "exchange_type": "direct",
+      "queue": "dbr-sync",
+      "binding": "new.sync"
+    },
     "dbr": {
       "db": {
         "driver": "postgres",
-        "datasource": "postgres://user:password@localhost:7000/postgres?sslmode=disable&search_path=profile"
+        "datasource": "postgres://user:password@localhost:7000/postgres?sslmode=disable&search_path=dbr-sync"
       }
     },
     "log": {
@@ -15,9 +21,9 @@
         "database": "schema/db/postgres"
       },
       "db": {
-        "schema": "profile",
+        "schema": "dbr-sync",
         "driver": "postgres",
-        "datasource": "postgres://user:password@localhost:7000/postgres?sslmode=disable&search_path=profile"
+        "datasource": "postgres://user:password@localhost:7000/postgres?sslmode=disable&search_path=dbr-sync"
       },
       "log": {
         "level": "info"

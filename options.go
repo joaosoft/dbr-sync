@@ -1,45 +1,45 @@
-package profile
+package dbr_sync
 
 import (
-	logger "github.com/joaosoft/logger"
+	"github.com/joaosoft/logger"
 	"github.com/joaosoft/manager"
 )
 
-// ProfileOption ...
-type ProfileOption func(profile *Profile)
+// DbrSyncOption ...
+type DbrSyncOption func(dbrSync *DbrSync)
 
 // Reconfigure ...
-func (profile *Profile) Reconfigure(options ...ProfileOption) {
+func (dbrSync *DbrSync) Reconfigure(options ...DbrSyncOption) {
 	for _, option := range options {
-		option(profile)
+		option(dbrSync)
 	}
 }
 
 // WithConfiguration ...
-func WithConfiguration(config *ProfileConfig) ProfileOption {
-	return func(profile *Profile) {
-		profile.config = config
+func WithConfiguration(config *DbrSyncConfig) DbrSyncOption {
+	return func(dbrSync *DbrSync) {
+		dbrSync.config = config
 	}
 }
 
 // WithLogger ...
-func WithLogger(logger logger.ILogger) ProfileOption {
-	return func(profile *Profile) {
-		profile.logger = logger
-		profile.isLogExternal = true
+func WithLogger(logger logger.ILogger) DbrSyncOption {
+	return func(dbrSync *DbrSync) {
+		dbrSync.logger = logger
+		dbrSync.isLogExternal = true
 	}
 }
 
 // WithLogLevel ...
-func WithLogLevel(level logger.Level) ProfileOption {
-	return func(profile *Profile) {
-		profile.logger.SetLevel(level)
+func WithLogLevel(level logger.Level) DbrSyncOption {
+	return func(dbrSync *DbrSync) {
+		dbrSync.logger.SetLevel(level)
 	}
 }
 
 // WithManager ...
-func WithManager(mgr *manager.Manager) ProfileOption {
-	return func(profile *Profile) {
-		profile.pm = mgr
+func WithManager(mgr *manager.Manager) DbrSyncOption {
+	return func(dbrSync *DbrSync) {
+		dbrSync.pm = mgr
 	}
 }

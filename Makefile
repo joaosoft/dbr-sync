@@ -1,3 +1,6 @@
+env:
+	docker-compose up -d
+
 run:
 	go run ./bin/launcher/main.go
 

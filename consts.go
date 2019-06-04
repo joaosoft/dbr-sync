@@ -1,4 +1,4 @@
-package profile
+package dbr_sync
 
 const (
 	defaultURL      = "http://localhost:8001"

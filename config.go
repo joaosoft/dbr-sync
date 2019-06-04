@@ -1,4 +1,4 @@
-package profile
+package dbr_sync
 
 import (
 	"fmt"
@@ -11,15 +11,21 @@ import (
 
 // AppConfig ...
 type AppConfig struct {
-	Profile *ProfileConfig `json:"profile"`
+	DbrSync *DbrSyncConfig `json:"dbr-sync"`
+}
+
+type RabbitmqConfig struct {
+	*manager.RabbitmqConfig
+	Queue   string `json:"queue"`
+	Binding string `json:"binding"`
 }
 
 // ProfileConfig ...
-type ProfileConfig struct {
-	Host              string                     `json:"host"`
-	Dbr               *dbr.DbrConfig             `json:"dbr"`
-	Migration         *migration.MigrationConfig `json:"migration"`
-	Log               struct {
+type DbrSyncConfig struct {
+	Rabbitmq  RabbitmqConfig             `json:"rabbitmq"`
+	Dbr       *dbr.DbrConfig             `json:"dbr"`
+	Migration *migration.MigrationConfig `json:"migration"`
+	Log       struct {
 		Level string `json:"level"`
 	} `json:"log"`
 }

@@ -1,4 +1,4 @@
-package profile
+package dbr_sync
 
 import (
 	"github.com/joaosoft/errors"
