@@ -4,11 +4,11 @@ import (
 	"database/sql"
 	"dbr-sync"
 	"fmt"
-	"json"
 	"strings"
 	"time"
 
 	"github.com/joaosoft/dbr"
+	"github.com/joaosoft/json"
 	"github.com/joaosoft/manager"
 )
 

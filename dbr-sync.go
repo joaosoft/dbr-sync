@@ -1,18 +1,16 @@
 package dbr_sync
 
 import (
-	"encoding/json"
 	"fmt"
 	"sync"
 
 	"github.com/joaosoft/dbr"
-
-	"github.com/labstack/gommon/log"
-	"github.com/streadway/amqp"
-
+	"github.com/joaosoft/json"
 	"github.com/joaosoft/logger"
 	"github.com/joaosoft/manager"
 	migration "github.com/joaosoft/migration/services"
+	"github.com/labstack/gommon/log"
+	"github.com/streadway/amqp"
 )
 
 type DbrSync struct {
@@ -95,7 +93,7 @@ func (m *DbrSync) handleRabbitMessage(msg amqp.Delivery) error {
 	log.Info("Handling message...")
 	var operations OperationList
 
-	err := json.Unmarshal(msg.Body, &operations)
+	err := json.Unmarshal(msg.Body, &operations, "json")
 	if err != nil {
 		return err
 	}
