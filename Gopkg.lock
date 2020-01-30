@@ -385,6 +385,7 @@
     "github.com/joaosoft/migration/services",
     "github.com/joaosoft/web",
     "github.com/labstack/gommon/log",
+    "github.com/satori/go.uuid",
     "github.com/streadway/amqp",
   ]
   solver-name = "gps-cdcl"
