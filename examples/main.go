@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"dbr-sync"
 	"fmt"
+	uuid "github.com/satori/go.uuid"
 	"strings"
 	"time"
 
@@ -23,7 +24,7 @@ type Example struct {
 
 func main() {
 
-	// start sync system
+	// start consumer
 	dbrSync, err := dbr_sync.NewDbrSync()
 	if err != nil {
 		panic(err)
@@ -33,34 +34,30 @@ func main() {
 		panic(err)
 	}
 
-	// test with dbr
+	// start producer
 	var db, _ = dbr.New(
 		dbr.WithConfiguration(&dbr.DbrConfig{
 			Db: &manager.DBConfig{
-				DataSource: "postgres://user:password@localhost:7000/postgres?sslmode=disable&search_path=dbr-sync",
+				DataSource: "postgres://user:password@localhost:7000/postgres?sslmode=disable&search_path=dbr-sync-origin",
 				Driver:     "postgres",
 			},
 		}),
-		dbr.WithSuccessEventHandler(HandleSuccessEvent),
+		dbr.WithSuccessEventHandler(HandleSuccessEventProducer),
 	)
 
-	now := time.Now()
-	example := &Example{
-		IdExample:   "e4c15bfb-3aee-4477-b6f2-d5eb75c1f119",
-		Name:        "joao",
-		Description: "my first test",
-		Active:      true,
-		CreatedAt:   now,
-		UpdatedAt:   now,
+	if err = insert("first", db); err != nil {
+		panic(err)
 	}
 
-	_, err = db.
-		Insert().
-		Into("example").
-		Record(example).
-		Exec()
+	if err = insert("second", db); err != nil {
+		panic(err)
+	}
 
-	if err != nil {
+	if err = update("first", db); err != nil {
+		panic(err)
+	}
+
+	if err = delete("second", db); err != nil {
 		panic(err)
 	}
 
@@ -68,12 +65,65 @@ func main() {
 	dbrSync.Stop()
 }
 
-func HandleSuccessEvent(operation dbr.SqlOperation, table []string, query string, rows *sql.Rows, sqlResult sql.Result) error {
+func insert(name string, db *dbr.Dbr) error {
+	id, _ := uuid.NewV4()
+	now := time.Now()
+	example := &Example{
+		IdExample:   id.String(),
+		Name:        name,
+		Description: fmt.Sprintf("my %s test", name),
+		Active:      true,
+		CreatedAt:   now,
+		UpdatedAt:   now,
+	}
+
+	_, err := db.
+		Insert().
+		Into("example").
+		Record(example).
+		Exec()
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func update(name string, db *dbr.Dbr) error {
+	_, err := db.
+		Update("example").
+		Set("description", fmt.Sprintf("my %s test updated", name)).
+		Where("name = ?", name).
+		Exec()
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func delete(name string, db *dbr.Dbr) error {
+	_, err := db.
+		Delete().
+		From("example").
+		Where("name = ?", name).
+		Exec()
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func HandleSuccessEventProducer(operation dbr.SqlOperation, table []string, query string, rows *sql.Rows, sqlResult sql.Result) error {
 	fmt.Printf("\nSuccess event [operation: %s, tables: %s, query: %s]", operation, strings.Join(table, "; "), query)
 
 	pm := manager.NewManager()
 
-	uri := fmt.Sprintf("amqp://%s:%s@%s:%s%s", "root", "password", "localhost", "5673", "/local")
+	uri := fmt.Sprintf("amqp://%s:%s@%s:%s%s", "root", "password", "localhost", "5672", "/local")
 	configRabbitmq := manager.NewRabbitmqConfig(uri, "dbr-sync-exchange", "direct")
 
 	rabbitmqProducer, err := pm.NewSimpleRabbitmqProducer(configRabbitmq)

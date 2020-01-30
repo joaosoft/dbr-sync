@@ -65,16 +65,16 @@ func NewDbrSync(options ...DbrSyncOption) (*DbrSync, error) {
 	}
 
 	// rabbitmq
-	rabbitmqconsumer, err := service.pm.NewSimpleRabbitmqConsumer(
+	rabbitmqConsumer, err := service.pm.NewSimpleRabbitmqConsumer(
 		config.DbrSync.Rabbitmq.RabbitmqConfig,
 		config.DbrSync.Rabbitmq.Queue,
 		config.DbrSync.Rabbitmq.Binding,
-		"dbr-sync", service.handleRabbitMessage)
+		"dbr-sync", service.consumeRabbitMessage)
 	if err != nil {
 		log.Errorf("%s", err)
 	}
 
-	service.pm.AddRabbitmqConsumer("rabbitmq_consumer", rabbitmqconsumer)
+	service.pm.AddRabbitmqConsumer("rabbitmq_consumer", rabbitmqConsumer)
 
 	return service, nil
 }
@@ -89,7 +89,7 @@ func (m *DbrSync) Stop() error {
 	return m.pm.Stop()
 }
 
-func (m *DbrSync) handleRabbitMessage(msg amqp.Delivery) error {
+func (m *DbrSync) consumeRabbitMessage(msg amqp.Delivery) error {
 	log.Info("Handling message...")
 	var operations OperationList
 
