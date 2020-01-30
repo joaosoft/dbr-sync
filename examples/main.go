@@ -135,14 +135,43 @@ func HandleSuccessEventProducer(operation dbr.SqlOperation, table []string, quer
 		return err
 	}
 
-	oper := &dbr_sync.Operation{
-		Operation: operation,
-		Query:     &query,
+	var operList dbr_sync.OperationList
+	mode := 2
+	switch mode {
+	case 1:
+		operList = append(operList, &dbr_sync.Operation{
+			Operation: operation,
+			Query:     &query,
+		})
+	case 2:
+		columns, err := rows.Columns()
+		if err != nil {
+			return err
+		}
+		values := make([]interface{}, len(columns))
+		for i := range values {
+			values[i] = new(interface{})
+		}
+
+		for rows.Next() {
+			rows.Scan(values...)
+
+			columnsWithValues := make(map[string]interface{})
+			for i, column := range columns {
+				columnsWithValues[column] = values[i]
+			}
+
+			operList = append(operList, &dbr_sync.Operation{
+				Operation: operation,
+				Details: &dbr_sync.Details{
+					Table:  table[0],
+					Values: columnsWithValues,
+				},
+			})
+		}
 	}
 
-	opers := dbr_sync.OperationList{oper}
-
-	message, err := json.Marshal(opers)
+	message, err := json.Marshal(operList)
 	if err != nil {
 		return err
 	}
