@@ -137,6 +137,7 @@ func HandleSuccessEventProducer(operation dbr.SqlOperation, table []string, quer
 
 	var operList dbr_sync.OperationList
 	mode := 2
+
 	switch mode {
 	case 1:
 		operList = append(operList, &dbr_sync.Operation{
@@ -154,7 +155,9 @@ func HandleSuccessEventProducer(operation dbr.SqlOperation, table []string, quer
 		}
 
 		for rows.Next() {
-			rows.Scan(values...)
+			if err = rows.Scan(values...); err != nil {
+				return err
+			}
 
 			columnsWithValues := make(map[string]interface{})
 			for i, column := range columns {
@@ -172,6 +175,7 @@ func HandleSuccessEventProducer(operation dbr.SqlOperation, table []string, quer
 	}
 
 	message, err := json.Marshal(operList)
+	fmt.Printf("HERE: %s", string(message))
 	if err != nil {
 		return err
 	}

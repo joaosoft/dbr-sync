@@ -5,4 +5,7 @@ const (
 	tokenTypeBearer = "Bearer"
 
 	claimsIdUser = "id_user"
+
+	ModeDetails mode = "details"
+	ModeQuery   mode = "query"
 )

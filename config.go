@@ -25,6 +25,7 @@ type DbrSyncConfig struct {
 	Rabbitmq  RabbitmqConfig             `json:"rabbitmq"`
 	Dbr       *dbr.DbrConfig             `json:"dbr"`
 	Migration *migration.MigrationConfig `json:"migration"`
+	Mode      mode                       `json:"mode"`
 	Log       struct {
 		Level string `json:"level"`
 	} `json:"log"`

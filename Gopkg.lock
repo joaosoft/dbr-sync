@@ -73,11 +73,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:44e367c223d6788d22f720821fca7b3923f88da7de60934a82cbe20266601a89"
+  digest = "1:2e209e71f448a31c4e1632dabbcf429b0313e446924c8ae9d9e0c7477f839139"
   name = "github.com/joaosoft/dbr"
   packages = ["."]
   pruneopts = "UT"
-  revision = "689b397ec8fdfbe10342e46942d3ed8657e6efed"
+  revision = "32b6c4909096d090d5a0eaefa77ba90abb66b280"
 
 [[projects]]
   branch = "master"
@@ -89,11 +89,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:eca3fe89591a372485ac8b8874196640349d8a95c0ffd534ebdcd6a722cff4c7"
+  digest = "1:64e02546a5c679ad5cbd922eab34770329cdf18be231cc95105d35d4ef73e289"
   name = "github.com/joaosoft/json"
   packages = ["."]
   pruneopts = "UT"
-  revision = "2c515ff3770a5374e253a6af08a5fc38c2dc4dd1"
+  revision = "e22ebc8da3adb59c7f0ba68f97352ed8c7274469"
 
 [[projects]]
   branch = "master"
@@ -105,11 +105,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:be6da03ef158ba27296c781bf720a5f4a4079ffa2d36c775703f055585883be2"
+  digest = "1:a29c7bf5e434847aa96edb07e3ce365cef6222e4dda8f5b2eb2ccfa92f42dbce"
   name = "github.com/joaosoft/manager"
   packages = ["."]
   pruneopts = "UT"
-  revision = "58e34c803ec1249dcf0775a56d6eca47e49c6e59"
+  revision = "709f63221c5d651451225d072163238c9fa656c7"
 
 [[projects]]
   branch = "master"
@@ -358,12 +358,12 @@
   version = "v0.3.2"
 
 [[projects]]
-  digest = "1:c4b5592c342f273e18de68e16957f536f6648f2e90c9d7ece653ac90c22079a9"
+  digest = "1:ef4bd1cd2563d93d3f48352fc24d499a4a2b54c11932814173653ece7db13800"
   name = "gopkg.in/ini.v1"
   packages = ["."]
   pruneopts = "UT"
-  revision = "94291fffe2b14f4632ec0e67c1bfecfc1287a168"
-  version = "v1.51.1"
+  revision = "32cf4f7e9c77f151e18b53067b55549b4d1d411d"
+  version = "v1.52.0"
 
 [[projects]]
   digest = "1:55b110c99c5fdc4f14930747326acce56b52cfce60b24b1c03ef686ac0e46bb1"

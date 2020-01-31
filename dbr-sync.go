@@ -13,6 +13,8 @@ import (
 	"github.com/streadway/amqp"
 )
 
+type mode string
+
 type DbrSync struct {
 	config        *DbrSyncConfig
 	isLogExternal bool
@@ -114,14 +116,10 @@ func (m *DbrSync) consumeRabbitMessage(msg amqp.Delivery) error {
 	}
 
 	for _, operation := range operations {
-
-		if operation.Query != nil {
-			executor = connection.
-				Execute(*operation.Query)
-		} else {
+		if operation.Details != nil {
+			fmt.Println(operation.Details.Values)
 			switch operation.Operation {
 			case dbr.InsertOperation:
-
 				// columns / values
 				var columns []interface{}
 				var values []interface{}
@@ -184,6 +182,9 @@ func (m *DbrSync) consumeRabbitMessage(msg amqp.Delivery) error {
 
 				executor = stmtDelete
 			}
+		} else {
+			executor = connection.
+				Execute(*operation.Query)
 		}
 
 		_, err = executor.Exec()
