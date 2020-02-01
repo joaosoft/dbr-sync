@@ -73,11 +73,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:2e209e71f448a31c4e1632dabbcf429b0313e446924c8ae9d9e0c7477f839139"
+  digest = "1:8f9e6a4a6202e9e9552ec74cf8a4d2480f840285a73d39ebc59ff313559f3ae3"
   name = "github.com/joaosoft/dbr"
   packages = ["."]
   pruneopts = "UT"
-  revision = "32b6c4909096d090d5a0eaefa77ba90abb66b280"
+  revision = "9b24137eadaaf6838d049721bed714f63b3ee1b7"
 
 [[projects]]
   branch = "master"
@@ -89,11 +89,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:64e02546a5c679ad5cbd922eab34770329cdf18be231cc95105d35d4ef73e289"
+  digest = "1:c254291afd9fbe199e5c0827e50b4479b3670eb52886ca8ca10f2b0c6766e142"
   name = "github.com/joaosoft/json"
   packages = ["."]
   pruneopts = "UT"
-  revision = "e22ebc8da3adb59c7f0ba68f97352ed8c7274469"
+  revision = "74d1979210fdc7a3fd67232548ae432a8c6b4f39"
 
 [[projects]]
   branch = "master"
