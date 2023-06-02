@@ -2,8 +2,8 @@ package main
 
 import (
 	"database/sql"
-	"dbr-sync"
 	"fmt"
+	"github.com/joaosoft/dbr-sync"
 	uuid "github.com/satori/go.uuid"
 	"strings"
 	"time"
@@ -66,7 +66,7 @@ func main() {
 }
 
 func insert(name string, db *dbr.Dbr) error {
-	id, _ := uuid.NewV4()
+	id := uuid.NewV4()
 	now := time.Now()
 	example := &Example{
 		IdExample:   id.String(),
