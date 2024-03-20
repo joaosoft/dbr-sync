@@ -3,7 +3,7 @@ module github.com/joaosoft/dbr-sync
 go 1.20
 
 require (
-	github.com/joaosoft/dbr v0.0.0-20230531144058-c4baa903d6ef
+	github.com/joaosoft/dbr v0.0.0-20240320135941-0abd881e0c34
 	github.com/joaosoft/errors v0.0.0-20230531141818-ebb38600b462
 	github.com/joaosoft/json v0.0.0-20230531142934-29fc4385bd51
 	github.com/joaosoft/logger v0.0.0-20230531142923-753c0a3e836a
